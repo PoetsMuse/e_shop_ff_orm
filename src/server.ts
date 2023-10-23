@@ -1,11 +1,30 @@
 import fastify from 'fastify';
+import { DataSource } from 'typeorm'
 
 const app = fastify();
 
-// Define a route for the GET request at '/'
-app.get('/', async (request, reply) => {
-  return { status: 'active' };
-});
+import AutoLoad from "@fastify/autoload";
+app.register(AutoLoad, {
+  dir: `${__dirname}/routes`,
+})
+
+const AppDataSource = new DataSource({
+  type: "postgres",
+  host: "localhost",
+  port: 5432,
+  username: "postgres",
+  password: "postgres",
+  database: "e_shop_ff_orm",
+  entities: ['src/product/entities.ts'],
+})
+
+AppDataSource.initialize()
+    .then(() => {
+        console.log("Data Source has been initialized!")
+    })
+    .catch((err) => {
+        console.error("Error during Data Source initialization", err)
+    })
 
 // Start the server
 app.listen({ port: 3000, host: '0.0.0.0' }, (err, address) => {
