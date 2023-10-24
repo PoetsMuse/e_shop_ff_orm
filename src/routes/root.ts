@@ -5,18 +5,18 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
     fastify.get('/', {
         schema: {
             querystring: Type.Object({
-                name: Type.String({ default: 'world' })
+                status: Type.String({ default: 'active' })
             }),
             response: {
                 200: Type.Object({
-                    hello: Type.String(),
+                    status: Type.String(),
                 })
             }
             }
         }, async(req) => {
-            const { name } = req.query;
+            const { status } = req.query;
             return {
-                hello: name
+                status: status
             }
     });
 }

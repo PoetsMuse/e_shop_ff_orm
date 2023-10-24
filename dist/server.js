@@ -17,7 +17,9 @@ const AppDataSource = new typeorm_1.DataSource({
     username: "postgres",
     password: "postgres",
     database: "e_shop_ff_orm",
-    entities: ['src/product/entities.ts'],
+    logging: true,
+    synchronize: true,
+    entities: [`${__dirname}/entities/Product.ts}`],
 });
 AppDataSource.initialize()
     .then(() => {

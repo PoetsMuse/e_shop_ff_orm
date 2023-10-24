@@ -14,18 +14,18 @@ const plugin = (fastify) => __awaiter(void 0, void 0, void 0, function* () {
     fastify.get('/', {
         schema: {
             querystring: typebox_1.Type.Object({
-                name: typebox_1.Type.String({ default: 'world' })
+                status: typebox_1.Type.String({ default: 'active' })
             }),
             response: {
                 200: typebox_1.Type.Object({
-                    hello: typebox_1.Type.String(),
+                    status: typebox_1.Type.String(),
                 })
             }
         }
     }, (req) => __awaiter(void 0, void 0, void 0, function* () {
-        const { name } = req.query;
+        const { status } = req.query;
         return {
-            hello: name
+            status: status
         };
     }));
 });

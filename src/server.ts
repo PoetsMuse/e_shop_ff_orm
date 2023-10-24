@@ -15,7 +15,9 @@ const AppDataSource = new DataSource({
   username: "postgres",
   password: "postgres",
   database: "e_shop_ff_orm",
-  entities: ['src/product/entities.ts'],
+  logging: true,
+  synchronize: true,
+  entities: [`${__dirname}/products/entity.ts}`],
 })
 
 AppDataSource.initialize()
