@@ -1,5 +1,7 @@
 import fastify from 'fastify';
+import 'reflect-metadata'
 import { DataSource } from 'typeorm'
+import { Product } from './entities/product';
 
 const app = fastify();
 
@@ -15,25 +17,32 @@ const AppDataSource = new DataSource({
   username: "postgres",
   password: "postgres",
   database: "e_shop_ff_orm",
+  entities: [Product],
   logging: true,
   synchronize: true,
-  entities: [`${__dirname}/products/entity.ts}`],
 })
 
-AppDataSource.initialize()
-    .then(() => {
-        console.log("Data Source has been initialized!")
-    })
-    .catch((err) => {
-        console.error("Error during Data Source initialization", err)
-    })
+
 
 // Start the server
-app.listen({ port: 3000, host: '0.0.0.0' }, (err, address) => {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    console.log(`Server is listening on ${address}`);
-  });
+const main = async () => {
+  AppDataSource.initialize()
+    .then(() => {
+        console.log("Data Source has been initialized!");
+    })
+    .catch((err) => {
+        console.error("Error during Data Source initialization", err);
+    })
+
+    app.listen({ port: 3000, host: '0.0.0.0' }, (err, address) => {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+      console.log(`Server is listening on ${address}`);
+    });
+}
+
+main().catch((error) => console.log(error));
+
   

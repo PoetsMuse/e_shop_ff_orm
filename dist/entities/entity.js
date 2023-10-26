@@ -11,7 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Product = void 0;
 const typeorm_1 = require("typeorm");
-let Product = class Product extends typeorm_1.BaseEntity {
+const browser_1 = require("typeorm/browser");
+let Product = class Product extends browser_1.BaseEntity {
 };
 exports.Product = Product;
 __decorate([
