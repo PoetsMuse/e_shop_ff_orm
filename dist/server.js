@@ -16,6 +16,7 @@ const fastify_1 = __importDefault(require("fastify"));
 require("reflect-metadata");
 const app_data_source_1 = require("./app_data_source");
 const api_1 = __importDefault(require("./products/api"));
+const products_1 = __importDefault(require("./routes/products"));
 const fastify = (0, fastify_1.default)({
     logger: true
 });
@@ -25,6 +26,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         yield app_data_source_1.AppDataSource.initialize();
         console.log('Data Source has been initialized!');
         fastify.register(api_1.default);
+        fastify.register(products_1.default);
         fastify.listen({ port: 3000 }, (err, address) => {
             if (err) {
                 console.error(err);

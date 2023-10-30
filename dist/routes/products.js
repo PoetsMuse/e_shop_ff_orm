@@ -9,21 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const entity_1 = require("./entity");
 const app_data_source_1 = require("../app_data_source");
-const createProductRoute = (fastify) => __awaiter(void 0, void 0, void 0, function* () {
-    fastify.post('/products', (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
+const entity_1 = require("../products/entity");
+const productsRoute = (fastify) => __awaiter(void 0, void 0, void 0, function* () {
+    fastify.get('/products', (_, reply) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const productData = request.body;
             const productRepository = app_data_source_1.AppDataSource.getRepository(entity_1.Product);
-            // Create a new product instance and save it to the database.
-            const newProduct = productRepository.create(productData);
-            const savedProduct = yield productRepository.save(newProduct);
-            return reply.code(201).send(savedProduct); // Respond with the saved product.
+            const products = yield productRepository.find();
+            return reply.send(products);
         }
         catch (error) {
-            reply.code(500).send({ error: 'Internal Server Error' });
+            reply.status(500).send({ error: 'Internal Server Error' });
         }
     }));
 });
-exports.default = createProductRoute;
+exports.default = productsRoute;

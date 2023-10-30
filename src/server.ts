@@ -2,6 +2,7 @@ import Fastify from 'fastify';
 import 'reflect-metadata';
 import { AppDataSource } from './app_data_source'; 
 import createProductRoute from './products/api';
+import productsRoute from './routes/products';
 
 const fastify = Fastify({
   logger: true
@@ -15,6 +16,7 @@ const main = async () => {
     console.log('Data Source has been initialized!');
 
     fastify.register(createProductRoute);
+    fastify.register(productsRoute);
 
     fastify.listen({ port: 3000 }, (err, address) => {
       if (err) {
