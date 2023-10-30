@@ -9,24 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Product = void 0;
+exports.Money = void 0;
 const typeorm_1 = require("typeorm");
-const entity_1 = require("../financial/entity");
-let Product = class Product {
-};
-exports.Product = Product;
+class Money {
+}
+exports.Money = Money;
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    (0, typeorm_1.Column)('decimal', { precision: 10, scale: 2 }),
     __metadata("design:type", Number)
-], Product.prototype, "id", void 0);
+], Money.prototype, "amount", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('varchar', { length: 3 }),
     __metadata("design:type", String)
-], Product.prototype, "name", void 0);
-__decorate([
-    (0, typeorm_1.Column)(() => entity_1.Money),
-    __metadata("design:type", entity_1.Money)
-], Product.prototype, "price", void 0);
-exports.Product = Product = __decorate([
-    (0, typeorm_1.Entity)()
-], Product);
+], Money.prototype, "currency", void 0);
